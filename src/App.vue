@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-$background: #3b71c7;
+$background: #7caeff00;
 
 body {
   margin: 0;

@@ -14,13 +14,15 @@
         }
       "
     >
+      <!-- <template #list-item-text = "slot">
+        <span></span>
+      </template> -->
     </SimpleTypeahead>
     <img src="../assets/searchIcon.svg" @click="searchDataInDatabase()" />
   </div>
 </template>
 
 <script>
-// import "vue3-simple-typeahead/dist/vue3-simple-typeahead.css";
 import SimpleTypeahead from "./vue3-simple-typeahead.vue";
 
 export default {
@@ -136,6 +138,9 @@ export default {
          console.log(response);
        });
       }
+      this.$http.post('', {productsId: this.getProduct}).then((response) => {
+        console.log(response);
+      });
       this.refreshLocalStorageList();
     },
 
@@ -152,6 +157,7 @@ export default {
     },
 
     giveProductID(){
+      
       this.$emit("productID", this.getProduct);
     }
   },
