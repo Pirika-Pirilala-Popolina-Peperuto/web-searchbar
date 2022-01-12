@@ -1,5 +1,5 @@
 <template>
-  <div id="searchbar">
+  <div id="searchbar" @keydown.enter="searchDataInDatabase()">
     <SimpleTypeahead
       :items="finalList"
       :localStorageList="localStorageList"
@@ -59,10 +59,20 @@ export default {
         "Miracle",
         "Music",
         "Posion",
+        "Qb",
         "Shadow",
         "Thunder",
         "Water",
         "Wind",
+        "冰雪魔法",
+        "冰造型魔法",
+        "雷魔法",
+        "地魔法",
+        "治癒魔法",
+        "天空魔法",
+        "睡眠魔法",
+        "歐趴魔法",
+        "萌萌心動"
       ],
       filtered: [], // 搜尋欄位打的東西
       localStorageList: [], //LocalStorage 裡存的所有東西
@@ -114,13 +124,13 @@ export default {
       if (this.filtered != null) {
         this.saveToLocalStorage();
 
-        this.sqlcommand = "SELECT id FROM products WHERE name LIKE '%25" + this.data.input + "%25'";
+        this.sqlcommand = "SELECT id FROM products WHERE name LIKE '%25" + this.data.input + "%25' OR description LIKE '%25" + this.data.input + "%25'";
 
         let fetchURL = (this.serverURL + this.sqlcommand).replace(/ /g,"%20");
         fetchURL = fetchURL.replace(/'/g, "%27");
         
          this.$http.get(fetchURL).then((response) => {    //Success
-         this.getProduct = response.data;
+         this.getProduct = JSON.parse(JSON.stringify(response.data));
          console.log(this.getProduct);
        },(response)=>{    //fail
          console.log(response);
